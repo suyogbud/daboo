@@ -72,3 +72,11 @@ function resetGame() {
   // Reset the score
   scoreElement.textContent = '0';
 }
+
+
+//using enterbutton to roll dice
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    rollDice();
+  }
+});
