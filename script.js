@@ -3,6 +3,7 @@ const scoreElement = document.getElementById('score');
 
 // Function to generate random dice rolls
 function rollDice() {
+  // Generate random dice rolls
   const rolls = diceElements.map(() => Math.floor(Math.random() * 6) + 1);
 
   // Display the rolls on the dice elements
@@ -13,6 +14,18 @@ function rollDice() {
   // Calculate and update the score
   const score = calculateScore(rolls);
   scoreElement.textContent = score;
+
+  // Play the dice sound effect
+  playSoundEffect('dice.mp3');
+
+  // Check win/lose conditions
+  if (score >= 100) {
+    alert('Congratulations! You won!');
+    resetGame();
+  } else if (rolls.includes(1)) {
+    alert('Oops! You rolled a 1. Game over!');
+    resetGame();
+  }
 }
 
 // Function to calculate the score
@@ -40,28 +53,6 @@ function calculateScore(rolls) {
 const rollButton = document.getElementById('roll-button');
 rollButton.addEventListener('click', rollDice);
 
-function rollDice() {
-  // Generate random dice rolls
-  const rolls = diceElements.map(() => Math.floor(Math.random() * 6) + 1);
-
-  // Display the rolls on the dice elements
-  for (let i = 0; i < diceElements.length; i++) {
-    diceElements[i].textContent = rolls[i];
-  }
-
-  // Calculate and update the score
-  const score = calculateScore(rolls);
-  scoreElement.textContent = score;
-
-  // Check win/lose conditions
-  if (score >= 100) {
-    alert('Congratulations! You won!');
-    resetGame();
-  } else if (rolls.includes(1)) {
-    alert('Oops! You rolled a 1. Game over!');
-    resetGame();
-  }
-}
 
 function resetGame() {
   // Reset dice rolls
@@ -80,3 +71,8 @@ document.addEventListener('keydown', (event) => {
     rollDice();
   }
 });
+
+function playSoundEffect(soundFile) {
+  var audio = new Audio('sounds/' + soundFile);
+  audio.play();
+}
